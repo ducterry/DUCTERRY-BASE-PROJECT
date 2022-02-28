@@ -1,9 +1,10 @@
 package com.ducterry.base.utils;
 
 import java.util.Random;
+import java.util.UUID;
 
-public class StringUtils {
-    public static String makeRandomString() {
+public class StrUtils {
+    public static String randomString() {
         String upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lowerAlphabet = "abcdefghijklmnopqrstuvwxyz";
         String numbers = "0123456789";
@@ -17,5 +18,11 @@ public class StringUtils {
             sb.append(randomChar);
         }
         return sb.toString();
+    }
+
+    public static String UUID() {
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        return org.apache.commons.lang3.StringUtils.upperCase(uuid);
+
     }
 }

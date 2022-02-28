@@ -3,7 +3,6 @@ package com.ducterry.base.commons.config.security;
 import com.ducterry.base.entity.login.User;
 import com.ducterry.base.repository.UserRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,10 +10,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    ModelMapper modelMapper;
+
+   private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
+
+    public UserDetailsServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
+    }
 
 
     @Override
