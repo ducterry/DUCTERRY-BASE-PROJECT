@@ -10,12 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @RestController
 @EnableConfigurationProperties
 @EnableScheduling
 @Api(tags = "01. HealCheck", produces = "Kiểm tra hoạt động Server")
 @SpringBootApplication
+//@EnableSwagger2
 public class DucTerryApplication {
 
 	public static void main(String[] args) {

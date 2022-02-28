@@ -19,7 +19,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiEndPointsInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("ducterrybase"))
+                .apis(RequestHandlerSelectors.basePackage("com.ducterry.base"))
                 .paths(PathSelectors.any())
                 .build();
     }
