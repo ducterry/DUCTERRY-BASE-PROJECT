@@ -87,7 +87,7 @@ public class LogAOP {
 
                     payload = new String(buf, 0, maxLength, wrapper.getCharacterEncoding());
                 } catch (UnsupportedEncodingException e) {
-                    e.getStackTrace()
+                    e.getStackTrace();
                 }
             }
         }
