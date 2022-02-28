@@ -17,7 +17,7 @@ public class AppTraceLog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    private BigDecimal id;
+    private Long  id;
     @Column(name = "CREATED_DATE")
     private Date createdDate;
     @Column(name = "BODY_REQUEST")

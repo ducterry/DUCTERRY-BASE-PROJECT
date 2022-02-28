@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableScheduling
 @Api(tags = "01. HealCheck", produces = "Kiểm tra hoạt động Server")
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class }, scanBasePackages = "com.ducterry")
-public class DucterryApplication {
+public class DucTerryApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DucterryApplication.class, args);
+		SpringApplication.run(DucTerryApplication.class, args);
 	}
 
 	@GetMapping("/health-check")
