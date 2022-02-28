@@ -1,6 +1,6 @@
 package com.ducterry.base.custom;
 
-import com.ducterry.base.entity.log.AppTraceLog;
+import com.ducterry.base.entity.log.TraceLog;
 import com.ducterry.base.service.log.LogService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,7 +40,7 @@ public class LogAOP {
         String urlRequest = getUrlRequest(request);
         String userRequest = getUserRequest(request);
         try {
-            AppTraceLog entity = new AppTraceLog();
+            TraceLog entity = new TraceLog();
             entity.setHeaderRequest(headerRequest);
             entity.setBodyRequest(requestStr);
             entity.setIpRequest(ipRequest);

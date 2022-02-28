@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name = "APP_TRACE_LOG")
 @Data
-public class AppTraceLog {
+public class TraceLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

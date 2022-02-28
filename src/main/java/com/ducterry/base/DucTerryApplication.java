@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableConfigurationProperties
 @EnableScheduling
 @Api(tags = "01. HealCheck", produces = "Kiểm tra hoạt động Server")
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class }, scanBasePackages = "com.ducterry")
+@SpringBootApplication
 public class DucTerryApplication {
 
 	public static void main(String[] args) {

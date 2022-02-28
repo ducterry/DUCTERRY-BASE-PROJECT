@@ -1,8 +1,8 @@
 package com.ducterry.base.service.log;
 
 import com.ducterry.base.dto.auth.req.LoginForm;
-import com.ducterry.base.entity.log.AppTraceLog;
-import com.ducterry.base.repository.AppTraceLogRepository;
+import com.ducterry.base.entity.log.TraceLog;
+import com.ducterry.base.repository.TraceLogRepository;
 import com.ducterry.base.utils.JSONFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +18,9 @@ public class LogService {
     private static final String REQUEST_ID = "request_id";
 
     private final ObjectMapper objectMapper;
-    private final AppTraceLogRepository logRepository;
+    private final TraceLogRepository logRepository;
 
-    public LogService(ObjectMapper objectMapper, AppTraceLogRepository logRepository) {
+    public LogService(ObjectMapper objectMapper, TraceLogRepository logRepository) {
         this.objectMapper = objectMapper;
         this.logRepository = logRepository;
     }
@@ -53,7 +53,7 @@ public class LogService {
         log.info(data.toString());
     }
 
-    public AppTraceLog createLog(AppTraceLog request) {
+    public TraceLog createLog(TraceLog request) {
         if (request.getUrlRequest().contains("login")) {
             String bodyRequest = request.getBodyRequest();
             LoginForm rqLogin = null;
@@ -65,6 +65,6 @@ public class LogService {
                 e.printStackTrace();
             }
         }
-        return this.logRepository.saveAndFlush(request);
+        return this.logRepository.save(request);
     }
 }
