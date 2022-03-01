@@ -1,11 +1,10 @@
 package com.ducterry.base.service.auth;
 
-import com.ducterry.base.commons.config.security.UserDetailsServiceImpl;
 import com.ducterry.base.commons.config.security.UserPrinciple;
 import com.ducterry.base.commons.config.security.jwt.JwtProvider;
 import com.ducterry.base.commons.constant.AuthConstants;
-import com.ducterry.base.dto.auth.req.LoginForm;
-import com.ducterry.base.dto.auth.req.SignUpForm;
+import com.ducterry.base.dto.auth.req.LoginRq;
+import com.ducterry.base.dto.auth.req.SignUpRq;
 import com.ducterry.base.dto.auth.res.UserDTO;
 import com.ducterry.base.entity.login.User;
 import com.ducterry.base.helper.mapper.UserConvert;
@@ -36,7 +35,7 @@ public class AuthService {
         this.userSupport = userSupport;
     }
 
-    public UserDTO register(SignUpForm request) {
+    public UserDTO register(SignUpRq request) {
         try {
             LOGGER.debug(PREFIX + "register => {}", request);
 
@@ -57,7 +56,7 @@ public class AuthService {
 
     }
 
-    public UserDTO login(LoginForm request) {
+    public UserDTO login(LoginRq request) {
         try {
             // 01. Validation
             User userExisted = this.userValidation.isLoginValid(request);

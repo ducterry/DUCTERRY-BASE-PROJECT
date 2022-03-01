@@ -1,8 +1,8 @@
 package com.ducterry.base.controller.auth;
 
 import com.ducterry.base.custom.RequestLogger;
-import com.ducterry.base.dto.auth.req.LoginForm;
-import com.ducterry.base.dto.auth.req.SignUpForm;
+import com.ducterry.base.dto.auth.req.LoginRq;
+import com.ducterry.base.dto.auth.req.SignUpRq;
 import com.ducterry.base.dto.auth.res.UserDTO;
 import com.ducterry.base.dto.base.ResponseObject;
 import com.ducterry.base.service.auth.AuthService;
@@ -40,7 +40,7 @@ public class AuthController {
             @ApiResponse(code = 300, message = "Không thành công"),
             @ApiResponse(code = 401, message = "Không tìm thấy kết quả"),
             @ApiResponse(code = 503, message = "Exception")})
-    public ResponseObject<UserDTO> login(@Valid @RequestBody LoginForm request) {
+    public ResponseObject<UserDTO> login(@Valid @RequestBody LoginRq request) {
         LOGGER.debug(PREFIX + "login => {}", request);
 
         return new ResponseObject<>(true, this.authService.login(request));
@@ -56,7 +56,7 @@ public class AuthController {
             @ApiResponse(code = 300, message = "Không thành công"),
             @ApiResponse(code = 401, message = "Không tìm thấy kết quả"),
             @ApiResponse(code = 503, message = "Exception")})
-    public ResponseObject<UserDTO> register(@Valid @RequestBody SignUpForm request) {
+    public ResponseObject<UserDTO> register(@Valid @RequestBody SignUpRq request) {
         LOGGER.debug(PREFIX + "register => {}", request);
 
         return new ResponseObject<>(true, this.authService.register(request));

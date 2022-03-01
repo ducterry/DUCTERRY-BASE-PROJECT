@@ -1,6 +1,6 @@
 package com.ducterry.base.service.log;
 
-import com.ducterry.base.dto.auth.req.LoginForm;
+import com.ducterry.base.dto.auth.req.LoginRq;
 import com.ducterry.base.entity.log.TraceLog;
 import com.ducterry.base.repository.TraceLogRepository;
 import com.ducterry.base.utils.JSONFactory;
@@ -56,10 +56,10 @@ public class LogService {
     public TraceLog createLog(TraceLog request) {
         if (request.getUrlRequest().contains("login")) {
             String bodyRequest = request.getBodyRequest();
-            LoginForm rqLogin = null;
+            LoginRq rqLogin = null;
             try {
-                rqLogin = this.objectMapper.readValue(bodyRequest, LoginForm.class);
-                rqLogin.setPassword("protected");
+                rqLogin = this.objectMapper.readValue(bodyRequest, LoginRq.class);
+                rqLogin.setPassWord("protected");
                 request.setBodyRequest(this.objectMapper.writeValueAsString(rqLogin));
             } catch (IOException e) {
                 e.printStackTrace();

@@ -1,6 +1,6 @@
 package com.ducterry.base.controller.email;
 
-import com.ducterry.base.dto.auth.req.LoginForm;
+import com.ducterry.base.dto.auth.req.LoginRq;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/mail/v1")
-@Api(tags = "02. Email Controller", description = "Email API")
+@Api(tags = "03. Email Controller", description = "Email API")
 public class EmailController {
 
 
@@ -27,7 +27,7 @@ public class EmailController {
             @ApiResponse(code = 300, message = "Không thành công"),
             @ApiResponse(code = 401, message = "Không tìm thấy kết quả"),
             @ApiResponse(code = 503, message = "Exception")})
-    public ResponseEntity<Object> sendEmail(@Valid @RequestBody LoginForm request) {
+    public ResponseEntity<Object> sendEmail(@Valid @RequestBody LoginRq request) {
         return ResponseEntity
                 .ok(HttpStatus.OK)
                 .of(Optional.of("Thành Công"));

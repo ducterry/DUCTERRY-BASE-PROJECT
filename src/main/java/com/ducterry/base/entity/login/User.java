@@ -30,7 +30,7 @@ public class User  extends BaseEntity {
 
     @NotBlank
     @Size(min=3, max = 50)
-    private String username;
+    private String userName;
 
     @NotBlank
     @Size(max = 50)
@@ -39,7 +39,7 @@ public class User  extends BaseEntity {
 
     @NotBlank
     @Size(min=6, max = 100)
-    private String password;
+    private String passWord;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",

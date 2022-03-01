@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/export/v1")
-@Api(tags = "03. Export Controller", description = "Export API")
+@Api(tags = "04. Export Controller", description = "Export API")
 public class ExportController {
 }

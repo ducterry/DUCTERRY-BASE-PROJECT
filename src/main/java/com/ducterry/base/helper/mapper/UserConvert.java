@@ -1,7 +1,8 @@
 package com.ducterry.base.helper.mapper;
 
-import com.ducterry.base.dto.auth.req.SignUpForm;
+import com.ducterry.base.dto.auth.req.SignUpRq;
 import com.ducterry.base.dto.auth.res.UserDTO;
+import com.ducterry.base.dto.user.request.ChangePassRq;
 import com.ducterry.base.entity.login.Role;
 import com.ducterry.base.entity.login.User;
 import com.ducterry.base.enums.ERoleName;
@@ -26,9 +27,9 @@ public class UserConvert {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User convertToEntity(SignUpForm request) {
+    public User convertToEntity(SignUpRq request) {
         User entity = UserMapper.copyToEntity(request);
-        entity.setPassword(passwordEncoder.encode(request.getPassword()));
+        entity.setPassWord(passwordEncoder.encode(request.getPassWord()));
 
         Set<String> strRoles = request.getRole();
         Set<Role> roles = new HashSet<>();
@@ -78,9 +79,12 @@ public class UserConvert {
         UserDTO dto = new UserDTO();
         BeanUtils.copyProperties(entity, dto);
 
-        String password = entity.getPassword();
-
-
         return dto;
+    }
+
+    public User convertToEntity(User userExisted, ChangePassRq request) {
+        userExisted.setPassWord(passwordEncoder.encode(request.getNewPass()));
+
+        return userExisted;
     }
 }

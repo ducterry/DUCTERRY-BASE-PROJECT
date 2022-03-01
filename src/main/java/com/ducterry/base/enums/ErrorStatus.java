@@ -6,8 +6,8 @@ public enum ErrorStatus {
     INVALID_USER_EXISTED(1003, "USER đã tồn tại!"),
     INVALID_ROLE(1002, "ROLE không  tồn tại!"),
     USER_NOT_FOUND(1001, "Không tìm thấy User!"),
-    LOGIN_PASSWORD_INVALID(1000, "Passwork không đúng");
-
+    LOGIN_PASSWORD_INVALID(1000, "Passwork không đúng"),
+    INVALID_PASS_DUPLICATE(999,"Passwork mới bị trùng password cũ");
 
     public int code;
     public String message;
@@ -25,4 +25,4 @@ public enum ErrorStatus {
     public String getMessage() {
         return message;
     }
-}
+    }

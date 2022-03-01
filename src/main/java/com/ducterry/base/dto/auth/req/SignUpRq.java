@@ -14,7 +14,7 @@ import java.util.Set;
 @JsonPropertyOrder({
         "name", "username", "email", "password", "role"
 })
-public class SignUpForm {
+public class SignUpRq {
     @NotBlank
     @Size(min = 3, max = 50)
     @ApiModelProperty(example = "DucTerry", notes = "Full Name", required = true)
@@ -23,7 +23,7 @@ public class SignUpForm {
     @NotBlank
     @Size(min = 3, max = 50)
     @ApiModelProperty(example = "duc.nd5", notes = "User Name", required = true)
-    private String username;
+    private String userName;
 
     @NotBlank
     @Size(max = 60)
@@ -38,6 +38,6 @@ public class SignUpForm {
     @NotBlank
     @Size(min = 6, max = 40)
     @ApiModelProperty(example = "abc13579", notes = "Password", required = true)
-    private String password;
+    private String passWord;
 
 }

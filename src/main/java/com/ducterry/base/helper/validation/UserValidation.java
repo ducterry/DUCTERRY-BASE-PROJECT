@@ -1,7 +1,8 @@
 package com.ducterry.base.helper.validation;
 
-import com.ducterry.base.dto.auth.req.LoginForm;
-import com.ducterry.base.dto.auth.req.SignUpForm;
+import com.ducterry.base.dto.auth.req.LoginRq;
+import com.ducterry.base.dto.auth.req.SignUpRq;
+import com.ducterry.base.dto.user.request.ChangePassRq;
 import com.ducterry.base.entity.login.User;
 import com.ducterry.base.enums.ErrorStatus;
 import com.ducterry.base.exception.ApiException;
@@ -19,20 +20,36 @@ public class UserValidation {
     }
 
 
-    public void isRegisterValid(SignUpForm request) {
+    public void isRegisterValid(SignUpRq request) {
         Boolean isEmailExisted = userRepository.existsByEmail(request.getEmail());
-        Boolean isUserNameExisted = userRepository.existsByUsername(request.getUsername());
+        Boolean isUserNameExisted = userRepository.existsByUserName(request.getUserName());
 
         if (isEmailExisted || isUserNameExisted) {
             throw new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.INVALID_USER_EXISTED);
         }
     }
 
-    public User isLoginValid(LoginForm request) {
+    public User isLoginValid(LoginRq request) {
         User userExisted = this.userRepository
-                .findByUsername(request.getUsername())
+                .findByUserName(request.getUserName())
                 .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, ErrorStatus.USER_NOT_FOUND));
-        if (!StrUtils.checkPass(request.getPassword(), userExisted.getPassword())) {
+        if (!StrUtils.checkPass(request.getPassWord(), userExisted.getPassWord())) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.LOGIN_PASSWORD_INVALID);
+        }
+
+        return userExisted;
+    }
+
+    public User isChangePassValid(ChangePassRq request) {
+        if (request.getOldPass().equals(request.getNewPass())){
+            throw new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.INVALID_PASS_DUPLICATE);
+        }
+
+        User userExisted = this.userRepository
+                .findByUserName(request.getUserName())
+                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, ErrorStatus.USER_NOT_FOUND));
+
+        if (!StrUtils.checkPass(request.getOldPass(), userExisted.getPassWord())) {
             throw new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.LOGIN_PASSWORD_INVALID);
         }
 

@@ -1,6 +1,6 @@
 package com.ducterry.base.helper.support;
 
-import com.ducterry.base.dto.auth.req.LoginForm;
+import com.ducterry.base.dto.auth.req.LoginRq;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,9 +16,9 @@ public class UserSupport {
     }
 
 
-    public  Authentication getAuthentication(LoginForm request) {
+    public  Authentication getAuthentication(LoginRq request) {
         Authentication authentication = this.authentication.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+                new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassWord()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return authentication;

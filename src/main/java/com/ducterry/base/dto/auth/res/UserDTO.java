@@ -11,19 +11,19 @@ import java.util.Set;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "username",
-        "password",
+        "userName",
+        "passWord",
         "email",
         "accessToken",
         "tokenType",
         "roles"
 })
 public class UserDTO {
-    private String username;
+    private String userName;
 
     private String email;
 
-    private String password;
+    private String passWord;
 
     private Set<Role> roles = new HashSet<>();
 

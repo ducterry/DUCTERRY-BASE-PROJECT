@@ -7,15 +7,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
-public class LoginForm {
+public class LoginRq {
     @NotBlank
     @Size(min=3, max = 60)
     @ApiModelProperty(example = "duc.nd5", notes = "User Name", required = true)
-    private String username;
+    private String userName;
 
     @NotBlank
     @Size(min = 6, max = 40)
     @ApiModelProperty(example = "abc13579", notes = "Password", required = true)
-    private String password;
+    private String passWord;
 
 }
