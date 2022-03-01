@@ -4,6 +4,7 @@ import com.ducterry.base.custom.RequestLogger;
 import com.ducterry.base.dto.auth.res.UserDTO;
 import com.ducterry.base.dto.base.ResponseObject;
 import com.ducterry.base.dto.user.request.ChangePassRq;
+import com.ducterry.base.dto.user.request.ChangeRoleRq;
 import com.ducterry.base.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,5 +44,21 @@ public class UserController {
         LOGGER.debug(PREFIX + "changePass => {}", request);
 
         return new ResponseObject<>(true, this.userService.changePass(request));
+    }
+
+
+    @RequestLogger
+    @ApiOperation(value = "Thay đổi Password")
+    @ResponseBody
+    @PostMapping(value = "/change-role", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Thành công"),
+            @ApiResponse(code = 300, message = "Không thành công"),
+            @ApiResponse(code = 401, message = "Không tìm thấy kết quả"),
+            @ApiResponse(code = 503, message = "Exception")})
+    public ResponseObject<UserDTO> changeRole(@Valid @RequestBody ChangeRoleRq request) {
+        LOGGER.debug(PREFIX + "changeRole => {}", request);
+
+        return new ResponseObject<>(true, this.userService.changeRole(request));
     }
 }

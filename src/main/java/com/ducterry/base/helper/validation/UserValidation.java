@@ -3,6 +3,7 @@ package com.ducterry.base.helper.validation;
 import com.ducterry.base.dto.auth.req.LoginRq;
 import com.ducterry.base.dto.auth.req.SignUpRq;
 import com.ducterry.base.dto.user.request.ChangePassRq;
+import com.ducterry.base.dto.user.request.ChangeRoleRq;
 import com.ducterry.base.entity.login.User;
 import com.ducterry.base.enums.ErrorStatus;
 import com.ducterry.base.exception.ApiException;
@@ -41,7 +42,7 @@ public class UserValidation {
     }
 
     public User isChangePassValid(ChangePassRq request) {
-        if (request.getOldPass().equals(request.getNewPass())){
+        if (request.getOldPass().equals(request.getNewPass())) {
             throw new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.INVALID_PASS_DUPLICATE);
         }
 
@@ -53,6 +54,17 @@ public class UserValidation {
             throw new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.LOGIN_PASSWORD_INVALID);
         }
 
+        return userExisted;
+    }
+
+    public User isChangeRoleValid(ChangeRoleRq request) {
+        User userExisted = this.userRepository
+                .findByUserName(request.getUserName())
+                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, ErrorStatus.USER_NOT_FOUND));
+
+        if (request.getRole().isEmpty()){
+            throw new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.CHANGE_ROLE_INVALID);
+        }
         return userExisted;
     }
 }

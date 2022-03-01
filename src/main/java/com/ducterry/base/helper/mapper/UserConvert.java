@@ -3,6 +3,7 @@ package com.ducterry.base.helper.mapper;
 import com.ducterry.base.dto.auth.req.SignUpRq;
 import com.ducterry.base.dto.auth.res.UserDTO;
 import com.ducterry.base.dto.user.request.ChangePassRq;
+import com.ducterry.base.dto.user.request.ChangeRoleRq;
 import com.ducterry.base.entity.login.Role;
 import com.ducterry.base.entity.login.User;
 import com.ducterry.base.enums.ERoleName;
@@ -27,7 +28,7 @@ public class UserConvert {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User convertToEntity(SignUpRq request) {
+    public User register(SignUpRq request) {
         User entity = UserMapper.copyToEntity(request);
         entity.setPassWord(passwordEncoder.encode(request.getPassWord()));
 
@@ -82,8 +83,47 @@ public class UserConvert {
         return dto;
     }
 
-    public User convertToEntity(User userExisted, ChangePassRq request) {
+    public User changePass(User userExisted, ChangePassRq request) {
         userExisted.setPassWord(passwordEncoder.encode(request.getNewPass()));
+
+        return userExisted;
+    }
+
+    public User changeRole(User userExisted, ChangeRoleRq request) {
+        Set<String> strRoles = request.getRole();
+        Set<Role> roles = new HashSet<>();
+        strRoles.stream()
+                .forEach(item ->{
+                    switch (ERoleName.getRoleName(item)) {
+                        case ROLE_PM:
+                            Role pmRole = this.roleRepository
+                                    .findByName(ERoleName.ROLE_PM)
+                                    .orElseThrow(
+                                            () -> new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.INVALID_ROLE));
+
+                            roles.add(pmRole);
+                            break;
+                        case ROLE_ADMIN:
+                            Role adminRole = this.roleRepository
+                                    .findByName(ERoleName.ROLE_ADMIN)
+                                    .orElseThrow(
+                                            () -> new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.INVALID_ROLE));
+
+                            roles.add(adminRole);
+                            break;
+                        default:
+                            Role userRole = this.roleRepository
+                                    .findByName(ERoleName.ROLE_USER)
+                                    .orElseThrow(
+                                            () -> new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.INVALID_ROLE));
+
+                            roles.add(userRole);
+
+                    }
+                });
+
+
+        userExisted.setRoles(roles);
 
         return userExisted;
     }

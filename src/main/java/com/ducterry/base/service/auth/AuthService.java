@@ -44,7 +44,7 @@ public class AuthService {
 
 
             // 02. Convert To Entity
-            User entity = this.userConvert.convertToEntity(request);
+            User entity = this.userConvert.register(request);
             User userSaved = this.userRepository.save(entity);
 
 

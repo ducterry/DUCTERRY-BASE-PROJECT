@@ -2,6 +2,7 @@ package com.ducterry.base.service.user;
 
 import com.ducterry.base.dto.auth.res.UserDTO;
 import com.ducterry.base.dto.user.request.ChangePassRq;
+import com.ducterry.base.dto.user.request.ChangeRoleRq;
 import com.ducterry.base.entity.login.User;
 import com.ducterry.base.helper.mapper.UserConvert;
 import com.ducterry.base.helper.support.UserSupport;
@@ -36,7 +37,7 @@ public class UserService {
             User userExisted = this.userValidation.isChangePassValid(request);
 
             // 02. Mapping New Password
-            User userChanged = this.userConvert.convertToEntity(userExisted, request);
+            User userChanged = this.userConvert.changePass(userExisted, request);
             User userSaved = this.userRepository.save(userChanged);
 
             // 03. Convert to DTO
@@ -45,5 +46,22 @@ public class UserService {
             throw ex;
         }
 
+    }
+
+    public UserDTO changeRole(ChangeRoleRq request) {
+        try {
+            // 01. Validation
+            User userExisted = this.userValidation.isChangeRoleValid(request);
+
+            // 02. Maping to new Role
+            User userChanged = this.userConvert.changeRole(userExisted, request);
+            User userSaved = this.userRepository.save(userChanged);
+
+
+            // 03. Convert to DTO
+            return this.userConvert.convertToDTO(userSaved);
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 }
