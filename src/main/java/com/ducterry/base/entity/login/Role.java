@@ -1,6 +1,7 @@
 package com.ducterry.base.entity.login;
 
 
+import com.ducterry.base.enums.ERoleName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,8 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 60)
-    private com.ndangducbn.base.dao.enums.ERoleName name;
+    private ERoleName name;
 
+    @Column
+    private String description;
 }

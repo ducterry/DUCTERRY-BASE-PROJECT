@@ -3,6 +3,7 @@ package com.ducterry.base.commons.config.security.jwt;
 import com.ducterry.base.commons.config.security.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,22 +16,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthTokenFilter.class);
     private final String PREFIX = "JwtAuthTokenFilter";
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
-    private final UserDetailsServiceImpl userDetailsService;
-    private final JwtProvider jwtProvider;
+    @Autowired
+    private JwtProvider jwtProvider;
 
-    public JwtAuthTokenFilter(UserDetailsServiceImpl userDetailsService, JwtProvider jwtProvider) {
-        this.userDetailsService = userDetailsService;
-        this.jwtProvider = jwtProvider;
+    public JwtAuthTokenFilter() {
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         try {
-            String jwt = getJwt(httpServletRequest);
+            String jwt = parseJwt(httpServletRequest);
             if (jwt != null && jwtProvider.validateJwtToken(jwt)) {
                 String username = jwtProvider.getUserNameFromJwtToken(jwt);
 
@@ -45,9 +47,10 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
             e.printStackTrace();
             LOGGER.error("Can NOT set user authentication -> Message: {}", e);
         }
+        filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
-    private String getJwt(HttpServletRequest request) {
+    private String parseJwt(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {

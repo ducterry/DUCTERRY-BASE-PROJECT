@@ -1,5 +1,8 @@
 package com.ducterry.base.utils;
 
+import com.ducterry.base.commons.constant.AuthConstants;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import java.util.Random;
 import java.util.UUID;
 
@@ -23,6 +26,14 @@ public class StrUtils {
     public static String UUID() {
         String uuid = UUID.randomUUID().toString().replace("-", "");
         return org.apache.commons.lang3.StringUtils.upperCase(uuid);
+    }
 
+
+    public static String passWord(String passWord) {
+        return BCrypt.hashpw(passWord, BCrypt.gensalt(AuthConstants.LOG_ROUNDS));
+    }
+
+    public static boolean checkPass(String rqPass,String userPass) {
+        return BCrypt.checkpw(rqPass, userPass);
     }
 }

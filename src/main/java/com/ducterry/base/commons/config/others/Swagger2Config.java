@@ -1,5 +1,6 @@
 package com.ducterry.base.commons.config.others;
 
+import org.apache.catalina.Host;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -13,21 +14,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig {
+public class Swagger2Config {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiEndPointsInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.ducterry.base"))
+                .apis(RequestHandlerSelectors.basePackage("com.ducterry"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .apiInfo(apiEndPointsInfo());
+
     }
 
     private ApiInfo apiEndPointsInfo() {
         return new ApiInfoBuilder().title("Spring Boot REST API")
                 .description("Base REST API")
-                .contact(new Contact("Duc Terry", "https://ducterry.com/", "ducterry.hn@gmail.com"))
+                .contact(new Contact("Duc Terry", "https://ducterry.com/", "dev.ndangduc.bn@gmail.com"))
                 .version("1.0.0")
                 .build();
     }

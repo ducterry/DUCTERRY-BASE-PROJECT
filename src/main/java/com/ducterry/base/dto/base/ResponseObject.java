@@ -1,13 +1,17 @@
 package com.ducterry.base.dto.base;
 
 
-import com.ndangducbn.base.dao.enums.ResponseStatus;
-import lombok.Getter;
-import lombok.Setter;
+import com.ducterry.base.enums.ErrorStatus;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Data;
 
 
-@Getter
-@Setter
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "result","code","message","data","paging"
+})
 public class ResponseObject<T> {
     private Boolean result;
     private Integer code;
@@ -15,40 +19,21 @@ public class ResponseObject<T> {
     private T data;
     private PaginationDTO paging;
 
-    public ResponseObject() {
-        //Constructor
-    }
 
-    private ResponseObject(Boolean result) {
-        this.result = result;
-    }
 
-    public ResponseObject(Boolean result, ResponseStatus status) {
+    public ResponseObject(Boolean result, ErrorStatus status) {
         this.result = result;
         this.code = status.getCode();
         this.message = status.getMessage();
     }
 
-    public ResponseObject(Boolean result, ResponseStatus status, String message) {
+    public ResponseObject(Boolean result, T data) {
         this.result = result;
-        this.code = status.getCode();
-        this.message = message;
-    }
-
-    public ResponseObject(Boolean result, ResponseStatus status, T data) {
-        this.result = result;
-        this.code = status.getCode();
-        this.message = status.getMessage();
         this.data = data;
     }
 
-    public ResponseObject(Boolean result, int code, String message) {
-        this.result = result;
-        this.code = code;
-        this.message = message;
-    }
 
-    public ResponseObject(Boolean result, ResponseStatus status, T data, PaginationDTO paging) {
+    public ResponseObject(Boolean result, ErrorStatus status, T data, PaginationDTO paging) {
         this.result = result;
         this.code = status.getCode();
         this.message = status.getMessage();

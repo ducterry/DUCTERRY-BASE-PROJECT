@@ -3,6 +3,7 @@ package com.ducterry.base.utils;
 
 import com.ducterry.base.commons.constant.FieldConstants;
 import com.ducterry.base.dto.base.ResponseObject;
+import com.ducterry.base.enums.ErrorStatus;
 import com.ducterry.base.exception.ApiException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,8 +16,6 @@ import org.springframework.web.client.RestTemplate;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Collections;
-
-import static com.ndangducbn.base.dao.enums.ResponseStatus.UNHANDLED_ERROR;
 
 
 public class RestFactory {
@@ -36,10 +35,10 @@ public class RestFactory {
             if (HttpStatus.OK.equals(response.getStatusCode()) && response.getBody() != null) {
                 return response.getBody();
             }
-            throw new ApiException(UNHANDLED_ERROR.formatMessage(""));
+            throw new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.UNHANDLED_ERROR);
         } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
-            throw new ApiException(UNHANDLED_ERROR.formatMessage(e.getMessage()));
+            throw new ApiException(HttpStatus.EXPECTATION_FAILED, ErrorStatus.UNHANDLED_ERROR);
         }
     }
 
@@ -66,10 +65,10 @@ public class RestFactory {
             if (HttpStatus.OK.equals(response.getStatusCode()) && response.getBody() != null) {
                 return response.getBody();
             }
-            throw new ApiException(UNHANDLED_ERROR.formatMessage(""));
+            throw new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.UNHANDLED_ERROR);
         } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
-            throw new ApiException(UNHANDLED_ERROR.formatMessage(e.getMessage()));
+            throw new ApiException(HttpStatus.EXPECTATION_FAILED, ErrorStatus.UNHANDLED_ERROR);
         }
     }
 
@@ -95,10 +94,10 @@ public class RestFactory {
             if (HttpStatus.OK.equals(response.getStatusCode()) && response.getBody() != null) {
                 return response.getBody();
             }
-            throw new ApiException(UNHANDLED_ERROR.formatMessage(""));
+            throw new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.UNHANDLED_ERROR);
         } catch (RestClientException e) {
             e.printStackTrace();
-            throw new ApiException(UNHANDLED_ERROR.formatMessage(e.getMessage()));
+            throw new ApiException(HttpStatus.EXPECTATION_FAILED, ErrorStatus.UNHANDLED_ERROR);
         }
     }
 
@@ -124,10 +123,10 @@ public class RestFactory {
             if (HttpStatus.OK.equals(response.getStatusCode()) && response.getBody() != null) {
                 return response.getBody();
             }
-            throw new ApiException(UNHANDLED_ERROR.formatMessage(""));
+            throw new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.UNHANDLED_ERROR);
         } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
-            throw new ApiException(UNHANDLED_ERROR.formatMessage(e.getMessage()));
+            throw new ApiException(HttpStatus.EXPECTATION_FAILED, ErrorStatus.UNHANDLED_ERROR);
         }
     }
 
@@ -152,10 +151,10 @@ public class RestFactory {
             if (HttpStatus.OK.equals(response.getStatusCode()) && response.getBody() != null) {
                 return response.getBody();
             }
-            throw new ApiException(UNHANDLED_ERROR.formatMessage(""));
+            throw new ApiException(HttpStatus.BAD_REQUEST, ErrorStatus.UNHANDLED_ERROR);
         } catch (RestClientException e) {
             e.printStackTrace();
-            throw new ApiException(UNHANDLED_ERROR.formatMessage(e.getMessage()));
+            throw new ApiException(HttpStatus.EXPECTATION_FAILED, ErrorStatus.UNHANDLED_ERROR);
         }
     }
 }

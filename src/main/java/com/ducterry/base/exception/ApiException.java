@@ -1,20 +1,17 @@
 package com.ducterry.base.exception;
 
 
-import com.ndangducbn.base.dao.enums.ResponseStatus;
+import com.ducterry.base.enums.ErrorStatus;
+import lombok.Data;
+import org.springframework.http.HttpStatus;
 
+@Data
 public class ApiException extends RuntimeException {
-    private int code;
-    private final ResponseStatus errorStatus;
+    private HttpStatus status;
+    private ErrorStatus error;
 
-    public ApiException(ResponseStatus errorStatus, String msg) {
-        super(msg);
-        this.errorStatus = errorStatus;
-    }
-
-    public ApiException(ResponseStatus errorStatus) {
-        super(errorStatus.getMessage());
-        this.code = errorStatus.getCode();
-        this.errorStatus = errorStatus;
+    public ApiException(HttpStatus status, ErrorStatus error) {
+        this.status = status;
+        this.error = error;
     }
 }
