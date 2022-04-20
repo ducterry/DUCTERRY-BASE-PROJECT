@@ -20,7 +20,6 @@ public class UserValidation {
         this.userRepository = userRepository;
     }
 
-
     public void isRegisterValid(SignUpRq request) {
         Boolean isEmailExisted = userRepository.existsByEmail(request.getEmail());
         Boolean isUserNameExisted = userRepository.existsByUserName(request.getUserName());
